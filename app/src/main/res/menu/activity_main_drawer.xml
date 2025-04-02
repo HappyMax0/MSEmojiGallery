@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+<!--        <item-->
+<!--            android:id="@+id/nav_favourites"-->
+<!--            android:icon="@drawable/outline_star_border"-->
+<!--            android:title="@string/menu_favourites" />-->
+
+        <item
+            android:id="@+id/nav_smileys_and_emotion"
+            android:icon="@drawable/face_blowing_a_kiss_high_contrast"
+            android:title="@string/menu_smileys_and_emotion" />
+
+        <item
+            android:id="@+id/nav_people_and_body"
+            android:icon="@drawable/eyes_high_contrast"
+            android:title="@string/menu_people_and_body" />
+
+        <item
+            android:id="@+id/nav_animals_and_nature"
+            android:icon="@drawable/monkey_face_high_contrast"
+            android:title="@string/menu_animals_and_nature" />
+
+        <item
+            android:id="@+id/nav_food_and_drink"
+            android:icon="@drawable/pizza_high_contrast"
+            android:title="@string/menu_food_and_drink" />
+
+        <item
+            android:id="@+id/nav_travel_and_places"
+            android:icon="@drawable/globe_showing_europe_africa_high_contrast"
+            android:title="@string/menu_travel_and_places" />
+
+        <item
+            android:id="@+id/nav_activities"
+            android:icon="@drawable/first_place_medal_high_contrast"
+            android:title="@string/menu_activities" />
+
+        <item
+            android:id="@+id/nav_objects"
+            android:icon="@drawable/balloon_high_contrast"
+            android:title="@string/menu_objects" />
+
+        <item
+            android:id="@+id/nav_symbols"
+            android:icon="@drawable/prohibited_high_contrast"
+            android:title="@string/menu_symbols" />
+
+        <item
+            android:id="@+id/nav_flags"
+            android:icon="@drawable/triangular_flag_high_contrast"
+            android:title="@string/menu_flags" />
+
+    </group>
+</menu>
