@@ -19,6 +19,7 @@ git commit -m "Update Fluent UI Emoji assets"
 
 Then
 Copy assets to android prject's assets folder
+
 Mac/Linux
 ```shell
 cp -r external-asset/assets app/src/main/assets
