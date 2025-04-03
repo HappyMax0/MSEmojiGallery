@@ -1,26 +1,29 @@
 # MSEmojiGallery
  An android app that show microsoft fluent emojis
 
-how to use 
+How to use?
+First, clone
 ```shell
 git clone --recurse-submodules https://github.com/HappyMax0/MSEmojiGallery.git 
 ```
 
-Update assets
+After Clone
+Update assets from [Fluent Emoji](https://github.com/microsoft/fluentui-emoji)
 ```shell
-cd external-assets
+cd external-asset
 git pull origin main
 cd ..
-git add external-assets
+git add external-asset
 git commit -m "Update Fluent UI Emoji assets"
 ```
 
-Copy assets to android prject
-mac/linux
+Then
+Copy assets to android prject's assets folder
+Mac/Linux
 ```shell
-ln -s "$(pwd)/external-assets/assets" "$(pwd)/app/src/main/assets"
+cp -r external-asset/assets app/src/main/assets
 ```
-
+Windows
 ```shell
-mklink /D app\src\main\assets external-assets\assets
+xcopy external-asset\assets app\src\main\assets /E /I
 ```
