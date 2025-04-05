@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_smileys_and_emotion">
+    app:startDestination="@+id/nav_favourites">
 
     <fragment
         android:id="@+id/nav_favourites"
-        android:name="com.happymax.msemojigallery.ui.slideshow.SlideshowFragment"
+        android:name="com.happymax.msemojigallery.FavouritesFragment"
         android:label="@string/menu_favourites"
-        tools:layout="@layout/fragment_slideshow" >
-        <argument android:name="category" app:argType="string" android:defaultValue="ALL"/>
+        tools:layout="@layout/fragment_main" >
     </fragment>
 
     <fragment
@@ -84,12 +83,5 @@
         tools:layout="@layout/fragment_main" >
         <argument android:name="category" app:argType="string" android:defaultValue="ALL"/>
     </fragment>
-
-    <!-- 右侧详情 -->
-<!--    <fragment-->
-<!--        android:id="@+id/detailFragment"-->
-<!--        android:name="com.happymax.msemojigallery.DetailFragment"-->
-<!--        android:label="Detail">-->
-<!--    </fragment>-->
 
 </navigation>

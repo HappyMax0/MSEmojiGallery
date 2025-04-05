@@ -23,6 +23,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val name:String? = intent.getStringExtra("name")
         val hasMultiSkin:Boolean = intent.getBooleanExtra("hasMultiSkin", false)
+        val collected:Boolean = intent.getBooleanExtra("collected", false)
         //setContentView(R.layout.activity_detail)
 
         // 设置 Toolbar
@@ -63,6 +64,7 @@ class DetailActivity : AppCompatActivity() {
             arguments = Bundle().apply {
                 putString("name", name)  // 传递参数
                 putBoolean("hasMultiSkin", hasMultiSkin)
+                putBoolean("collected", collected)
             }
         }
         manager.beginTransaction()

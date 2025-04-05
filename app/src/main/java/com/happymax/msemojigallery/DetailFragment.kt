@@ -14,22 +14,20 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.caverock.androidsvg.SVG
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
+import org.json.JSONArray
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -39,6 +37,7 @@ class DetailFragment : Fragment() {
 
     var name: String? = null
     var hasMultiSkin:Boolean = false
+    var collected:Boolean = false
     private var image3D: Bitmap? = null
     private var imageColor: Drawable? = null
     private var imageFlat: Drawable? = null
@@ -51,6 +50,7 @@ class DetailFragment : Fragment() {
         arguments?.let {
             name = it.getString("name")  // 从 arguments 中获取数据
             hasMultiSkin = it.getBoolean("hasMultiSkin")
+            collected = it.getBoolean("collected")
         }
     }
 
@@ -204,6 +204,40 @@ class DetailFragment : Fragment() {
         val saveBtn: MaterialButton = rootView.findViewById(R.id.saveBtn)
         saveBtn.setOnClickListener {
             saveImage()
+        }
+
+        val favouriteCheckBox:CheckBox = rootView.findViewById(R.id.favouriteCheckBox)
+        favouriteCheckBox.isChecked = collected
+        favouriteCheckBox.setOnCheckedChangeListener{_, isChecked ->
+            val sharedPreferences = context!!.getSharedPreferences("main", Context.MODE_PRIVATE)
+            val jsonString = sharedPreferences.getString("collection", "[]")
+            val jsonArray = JSONArray(jsonString)
+            val collectedEmojiNameArray:MutableList<String> = ArrayList()
+            for (i in 0 until jsonArray.length()) {
+                collectedEmojiNameArray.add(jsonArray.getString(i))
+            }
+
+            if(isChecked){
+                if(!collectedEmojiNameArray.contains(name))
+                    name?.let { collectedEmojiNameArray.add(it) }
+            }
+            else{
+                if(collectedEmojiNameArray.contains(name))
+                    collectedEmojiNameArray.remove(name)
+            }
+
+            val editor = sharedPreferences.edit()
+            for (value in collectedEmojiNameArray) {
+                jsonArray.put(value)
+            }
+            editor.putString("collection", jsonArray.toString())
+            editor.apply()
+
+            val result = Bundle()
+            result.putString("name", name)
+            result.putBoolean("collected", isChecked)
+            parentFragmentManager.setFragmentResult("favouriteChanged", result)
+
         }
 
         return rootView

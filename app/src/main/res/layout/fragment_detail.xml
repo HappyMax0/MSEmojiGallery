@@ -100,13 +100,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="15dp">
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/favouriteBtn"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:icon="@drawable/ic_star_24"-->
-<!--                android:text="Favo"-->
-<!--                android:layout_margin="10dp" />-->
+            <CheckBox
+                android:id="@+id/favouriteCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_star_24"
+                android:text="Favourite"
+                android:layout_margin="10dp" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/saveBtn"
                 android:layout_width="wrap_content"

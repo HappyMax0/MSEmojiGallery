@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         //navView.setupWithNavController(navController)
 
-        navView.setCheckedItem(R.id.nav_smileys_and_emotion)
+        navView.setCheckedItem(R.id.nav_favourites)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

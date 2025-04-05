@@ -2,40 +2,29 @@ package com.happymax.msemojigallery
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.happymax.msemojigallery.databinding.FragmentMainBinding
 
 
-class MainFragment : Fragment() {
-    var category:EmojiCategory? = EmojiCategory.ALL
-    private var _binding: FragmentMainBinding? = null
+class FavouritesFragment : Fragment() {
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        category = arguments?.getString("category")
-            ?.let { EmojiCategory.valueOf(it) }
-
-        return root
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +33,7 @@ class MainFragment : Fragment() {
         if (activity != null) {
             val mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
 
-            val emojis = mainViewModel.emojis.value?.filter { it.category == category }
+            val emojis = mainViewModel.emojis.value.filter { it.collected }
             val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
 
             recyclerView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -87,26 +76,7 @@ class MainFragment : Fragment() {
                 }
             })
             recyclerView.adapter = adapter
-
-            parentFragmentManager.setFragmentResultListener(
-                "favouriteChanged", this
-            ) { key: String?, bundle: Bundle ->
-                val name = bundle.getString("name")
-                val favourited = bundle.getBoolean("collected")
-                val emoji = emojis?.first{it.name.equals(name)}
-                if(emoji != null)
-                    emoji.collected = favourited
-
-                Toast.makeText(context, "favouriteChanged: $name, Fav: $favourited", Toast.LENGTH_SHORT).show()
-                Log.d("MainFragment", "favouriteChanged: $name, Fav: $favourited");
-
-            }
         }
 
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

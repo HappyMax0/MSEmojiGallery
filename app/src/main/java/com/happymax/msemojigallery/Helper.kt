@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.view.View
 import com.caverock.androidsvg.SVG
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -16,6 +17,14 @@ object Helper {
     fun GetEmojis(context: Context, emojiCategory: EmojiCategory):MutableList<Emoji>{
         val emojis:MutableList<Emoji> = ArrayList()
         try {
+            val sharedPreferences = context!!.getSharedPreferences("main", Context.MODE_PRIVATE)
+            val jsonString = sharedPreferences.getString("collection", "[]")
+            val jsonArray = JSONArray(jsonString)
+            val collectedEmojiNameArray:MutableList<String> = java.util.ArrayList()
+            for (i in 0 until jsonArray.length()) {
+                collectedEmojiNameArray.add(jsonArray.getString(i))
+            }
+
             val files: Array<out String>? = context.assets.list("") // "" 表示根目录
             if (files != null) {
                 for (file in files) {
@@ -78,7 +87,7 @@ object Helper {
                         }
 
                         if(category == emojiCategory || emojiCategory == EmojiCategory.ALL){
-                            emoji = Emoji(file, category, image3D, hasMultiSkin)
+                            emoji = Emoji(file, category, image3D, hasMultiSkin, collectedEmojiNameArray.contains(file))
                             emojis.add(emoji)
                         }
                     }
