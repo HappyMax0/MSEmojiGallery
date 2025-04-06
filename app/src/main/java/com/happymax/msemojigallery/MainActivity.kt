@@ -1,14 +1,14 @@
 package com.happymax.msemojigallery
 
-import android.content.res.Configuration
-import android.graphics.Color
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -24,7 +24,7 @@ import com.happymax.msemojigallery.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-
+    var launcher: ActivityResultLauncher<Intent>? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
@@ -127,6 +127,23 @@ class MainActivity : AppCompatActivity() {
         //navView.setupWithNavController(navController)
 
         navView.setCheckedItem(R.id.nav_favourites)
+
+        launcher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+                if (data != null) {
+                    val name = data.getStringExtra("name")
+                    val mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+                    val emoji = mainViewModel.emojis.value?.first() { it.name == name }
+                    if(emoji != null){
+                        val collected = data.getBooleanExtra("collected", emoji.collected)
+                        emoji.collected = collected
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

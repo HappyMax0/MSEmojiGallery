@@ -1,5 +1,6 @@
 package com.happymax.msemojigallery
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
@@ -17,12 +18,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.caverock.androidsvg.SVG
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -201,7 +204,7 @@ class DetailFragment : Fragment() {
             }
         }*/
 
-        val saveBtn: MaterialButton = rootView.findViewById(R.id.saveBtn)
+        val saveBtn: ImageButton = rootView.findViewById(R.id.saveBtn)
         saveBtn.setOnClickListener {
             saveImage()
         }
@@ -238,6 +241,20 @@ class DetailFragment : Fragment() {
             result.putBoolean("collected", isChecked)
             parentFragmentManager.setFragmentResult("favouriteChanged", result)
 
+            if(activity is MainActivity){
+                val mainViewModel = ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
+
+                val emoji = mainViewModel.emojis.value?.first() { it.name == name }
+                if(emoji != null){
+                    emoji.collected  = isChecked
+                }
+            }
+            else if(activity is DetailActivity){
+                val resultIntent = Intent()
+                resultIntent.putExtra("name", name)
+                resultIntent.putExtra("collected", isChecked)
+                (activity as DetailActivity).setResult(Activity.RESULT_OK, resultIntent)
+            }
         }
 
         return rootView

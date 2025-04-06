@@ -19,6 +19,11 @@ class FavouritesFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +37,6 @@ class FavouritesFragment : Fragment() {
         val activity = activity as? MainActivity
         if (activity != null) {
             val mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
-
             val emojis = mainViewModel.emojis.value.filter { it.collected }
             val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
 
@@ -71,7 +75,7 @@ class FavouritesFragment : Fragment() {
                         intent.putExtra("name", model.name)
                         intent.putExtra("hasMultiSkin", model.hasMultiSkin)
                         intent.putExtra("collected", model.collected)
-                        startActivity(intent)
+                        activity.launcher?.launch(intent)
                     }
                 }
             })

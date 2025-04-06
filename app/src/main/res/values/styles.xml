@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="StatusBarStyle" parent="Theme.Material3.Light">
-        <item name="android:background">#FFFFFF</item>
-    </style>
-</resources>

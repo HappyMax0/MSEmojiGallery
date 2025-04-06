@@ -41,7 +41,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val activity = activity as? MainActivity
-        if (activity != null) {
+        if (activity is MainActivity) {
             val mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
 
             val emojis = mainViewModel.emojis.value?.filter { it.category == category }
@@ -82,7 +82,7 @@ class MainFragment : Fragment() {
                         intent.putExtra("name", model.name)
                         intent.putExtra("hasMultiSkin", model.hasMultiSkin)
                         intent.putExtra("collected", model.collected)
-                        startActivity(intent)
+                        activity.launcher?.launch(intent)
                     }
                 }
             })
@@ -93,7 +93,7 @@ class MainFragment : Fragment() {
             ) { key: String?, bundle: Bundle ->
                 val name = bundle.getString("name")
                 val favourited = bundle.getBoolean("collected")
-                val emoji = emojis?.first{it.name.equals(name)}
+                val emoji = emojis?.first{ it.name == name }
                 if(emoji != null)
                     emoji.collected = favourited
 

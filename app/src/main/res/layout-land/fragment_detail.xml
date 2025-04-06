@@ -67,27 +67,51 @@
         <RadioButton android:id="@+id/radio_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Default"/>
+            android:contentDescription="Default"
+            style="@style/ColorRadioButton"
+            android:background="@drawable/radio_color_default"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/skin_default"/>
         <RadioButton android:id="@+id/radio_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Light"/>
+            android:contentDescription="Light"
+            style="@style/ColorRadioButton"
+            android:background="@drawable/radio_color_default"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/skin_light"/>
         <RadioButton android:id="@+id/radio_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dark"/>
+            android:contentDescription="Dark"
+            style="@style/ColorRadioButton"
+            android:background="@drawable/radio_color_default"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/skin_dark"/>
         <RadioButton android:id="@+id/radio_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium"/>
+            android:contentDescription="Medium"
+            style="@style/ColorRadioButton"
+            android:background="@drawable/radio_color_default"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/skin_medium"/>
         <RadioButton android:id="@+id/radio_mediumLight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MediumLight"/>
+            android:contentDescription="MediumLight"
+            style="@style/ColorRadioButton"
+            android:background="@drawable/radio_color_default"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/skin_medium_light"/>
         <RadioButton android:id="@+id/radio_mediumDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MediumDark"/>
+            android:contentDescription="MediumDark"
+            style="@style/ColorRadioButton"
+            android:background="@drawable/radio_color_default"
+            android:layout_marginVertical="5dp"
+            android:backgroundTint="@color/skin_medium_dark"/>
     </RadioGroup>
 
 <!--    <com.google.android.material.bottomappbar.BottomAppBar-->
@@ -106,24 +130,25 @@
             android:id="@+id/btnLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="15dp">
+            android:layout_margin="20dp">
             <CheckBox
                 android:id="@+id/favouriteCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon="@drawable/ic_star_24"
-                android:text="Favourite"
-                android:layout_margin="10dp" />
-            <com.google.android.material.button.MaterialButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:button="@drawable/checkbox_star"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/checkbox_favourite"/>
+
+            <ImageButton
                 android:id="@+id/saveBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon="@drawable/ic_save_24"
-                android:text="Save"
-                android:layout_margin="10dp" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_save_24"
+                android:text="Save" />
         </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -136,7 +161,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_anchorGravity="bottom|center"
         android:layout_gravity="end|bottom"
-        android:layout_margin="12dp"/>
+        android:layout_margin="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

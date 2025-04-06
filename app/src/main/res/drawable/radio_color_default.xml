@@ -1,0 +1,25 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 选中状态 -->
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="?attr/colorOnSurface"/>
+                    <size android:width="26dp" android:height="26dp"/>
+                </shape>
+            </item>
+            <item android:width="24dp" android:height="24dp" android:gravity="center">
+                <shape android:shape="oval">
+                    <solid android:color="?attr/backgroundTint" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <!-- 未选中状态 -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="?attr/backgroundTint"/>
+            <size android:width="24dp" android:height="24dp"/>
+        </shape>
+    </item>
+</selector>
