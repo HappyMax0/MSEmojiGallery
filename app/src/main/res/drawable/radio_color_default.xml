@@ -10,7 +10,7 @@
             </item>
             <item android:width="24dp" android:height="24dp" android:gravity="center">
                 <shape android:shape="oval">
-                    <solid android:color="?attr/backgroundTint" />
+                    <solid android:color="?attr/backgroundTint"/>" />
                 </shape>
             </item>
         </layer-list>

@@ -75,7 +75,6 @@
             android:layout_height="wrap_content"
             android:contentDescription="Dark"
             style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
             android:layout_marginHorizontal="5dp"
             android:backgroundTint="@color/skin_dark"/>
         <RadioButton android:id="@+id/radio_medium"
@@ -83,7 +82,6 @@
             android:layout_height="wrap_content"
             android:contentDescription="Medium"
             style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
             android:layout_marginHorizontal="5dp"
             android:backgroundTint="@color/skin_medium"/>
         <RadioButton android:id="@+id/radio_mediumLight"
@@ -91,7 +89,6 @@
             android:layout_height="wrap_content"
             android:contentDescription="MediumLight"
             style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
             android:layout_marginHorizontal="5dp"
             android:backgroundTint="@color/skin_medium_light"/>
         <RadioButton android:id="@+id/radio_mediumDark"
@@ -99,7 +96,6 @@
             android:layout_height="wrap_content"
             android:contentDescription="MediumDark"
             style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
             android:layout_marginHorizontal="5dp"
             android:backgroundTint="@color/skin_medium_dark"/>
     </RadioGroup>

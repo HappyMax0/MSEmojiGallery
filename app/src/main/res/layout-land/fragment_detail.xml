@@ -14,21 +14,78 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:layout_marginVertical="80dp">
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="350dp"
             android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_weight="10"
             android:contentDescription="@string/detail_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <RadioGroup
+            android:id="@+id/colorRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/imageLinearLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
+            android:layout_marginVertical="30dp">
+            <RadioButton android:id="@+id/radio_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Default"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_default"/>
+            <RadioButton android:id="@+id/radio_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Light"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_light"/>
+            <RadioButton android:id="@+id/radio_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Dark"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_dark"/>
+            <RadioButton android:id="@+id/radio_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Medium"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_medium"/>
+            <RadioButton android:id="@+id/radio_mediumLight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="MediumLight"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_medium_light"/>
+            <RadioButton android:id="@+id/radio_mediumDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="MediumDark"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_medium_dark"/>
+        </RadioGroup>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@android:color/transparent"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:layout_weight="1">
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_3d"
                 android:text="@string/detail_3d"
@@ -55,65 +112,6 @@
                 android:layout_weight="1"/>
         </com.google.android.material.tabs.TabLayout>
     </LinearLayout>
-
-    <RadioGroup
-        android:id="@+id/colorRadioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/imageLinearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
-        <RadioButton android:id="@+id/radio_default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Default"
-            style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/skin_default"/>
-        <RadioButton android:id="@+id/radio_light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Light"
-            style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/skin_light"/>
-        <RadioButton android:id="@+id/radio_dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Dark"
-            style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/skin_dark"/>
-        <RadioButton android:id="@+id/radio_medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Medium"
-            style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/skin_medium"/>
-        <RadioButton android:id="@+id/radio_mediumLight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="MediumLight"
-            style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/skin_medium_light"/>
-        <RadioButton android:id="@+id/radio_mediumDark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="MediumDark"
-            style="@style/ColorRadioButton"
-            android:background="@drawable/radio_color_default"
-            android:layout_marginVertical="5dp"
-            android:backgroundTint="@color/skin_medium_dark"/>
-    </RadioGroup>
-
 <!--    <com.google.android.material.bottomappbar.BottomAppBar-->
 <!--        android:id="@+id/bottomAppBar"-->
 <!--        android:layout_width="match_parent"-->
@@ -130,7 +128,7 @@
             android:id="@+id/btnLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="20dp">
