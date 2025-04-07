@@ -44,7 +44,9 @@ class MainFragment : Fragment() {
         if (activity is MainActivity) {
             val mainViewModel = ViewModelProvider(activity).get(MainViewModel::class.java)
 
-            val emojis = mainViewModel.emojis.value?.filter { it.category == category }
+            val emojis = if (category == EmojiCategory.FAVOURITE) mainViewModel.emojis.value.filter { it.collected }
+            else mainViewModel.emojis.value.filter { it.category == category }
+
             val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
 
             recyclerView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {

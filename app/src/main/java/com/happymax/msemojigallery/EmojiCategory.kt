@@ -1,7 +1,6 @@
 package com.happymax.msemojigallery
 
 enum class EmojiCategory {
-    UNKNOW,
     ALL,
     SMILEYS_AND_EMOTION,
     PEOPLE_AND_BODY,
@@ -12,4 +11,5 @@ enum class EmojiCategory {
     OBJECTS,
     SYMBOLS,
     FLAGS,
+    FAVOURITE
 }

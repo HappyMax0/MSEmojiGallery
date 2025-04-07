@@ -33,7 +33,7 @@ object Helper {
                     if (subFiles != null) {
                         var emoji:Emoji
                         var image3D: Bitmap? = null
-                        var category:EmojiCategory = EmojiCategory.UNKNOW
+                        var category:EmojiCategory = EmojiCategory.ALL
                         var hasMultiSkin = false
                         // 遍历子文件夹
                         for (subFile in subFiles) {
@@ -46,7 +46,7 @@ object Helper {
                                 if (jsonObject != null) {
                                     // 处理 JSON 数据
                                     val group = jsonObject.getString("group")
-                                    category = if(group == "Activities")
+                                    category = if (group == "Activities")
                                         EmojiCategory.ACTIVITIES
                                     else if(group == "Animals & Nature")
                                         EmojiCategory.ANIMALS_AND_NATURE
@@ -64,7 +64,7 @@ object Helper {
                                         EmojiCategory.SYMBOLS
                                     else if(group == "Flags")
                                         EmojiCategory.FLAGS
-                                    else EmojiCategory.UNKNOW
+                                    else EmojiCategory.ALL
                                     // ...
                                     try {
                                         if(jsonObject.has("unicodeSkintones")){
@@ -79,10 +79,8 @@ object Helper {
                                 }
                             }
                             else if(subFile == "Default"){
-                                val imageFiles: Array<String> = context?.assets?.list("$file/$subFile/3D")!!
-                                if(imageFiles != null) {
-                                    image3D = getBitmapImage(context, "$file/$subFile/3D")
-                                }
+                                val imageFiles: Array<String> = context.assets?.list("$file/$subFile/3D")!!
+                                image3D = getBitmapImage(context, "$file/$subFile/3D")
                             }
                         }
 

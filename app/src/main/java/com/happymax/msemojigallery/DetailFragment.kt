@@ -244,10 +244,8 @@ class DetailFragment : Fragment() {
             if(activity is MainActivity){
                 val mainViewModel = ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
 
-                val emoji = mainViewModel.emojis.value?.first() { it.name == name }
-                if(emoji != null){
-                    emoji.collected  = isChecked
-                }
+                val emoji = mainViewModel.emojis.value.first() { it.name == name }
+                emoji.collected  = isChecked
             }
             else if(activity is DetailActivity){
                 val resultIntent = Intent()

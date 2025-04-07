@@ -110,6 +110,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_flags -> {
                     EmojiCategory.FLAGS
                 }
+                R.id.nav_favourites ->{
+                    EmojiCategory.FAVOURITE
+                }
                 else -> {
                     EmojiCategory.ALL
                 }
@@ -136,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                 if (data != null) {
                     val name = data.getStringExtra("name")
                     val mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-                    val emoji = mainViewModel.emojis.value?.first() { it.name == name }
+                    val emoji = mainViewModel.emojis.value.first() { it.name == name }
                     if(emoji != null){
                         val collected = data.getBooleanExtra("collected", emoji.collected)
                         emoji.collected = collected
