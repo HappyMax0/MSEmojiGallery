@@ -221,10 +221,16 @@ class DetailFragment : Fragment() {
             }
 
             if(isChecked){
-                name?.let { collectedEmojiNameArray.add(it) }
+                name?.let {
+                    if(!collectedEmojiNameArray.contains(it))
+                        collectedEmojiNameArray.add(it)
+                }
             }
             else{
-                collectedEmojiNameArray.remove(name)
+                name?.let {
+                    if(collectedEmojiNameArray.contains(it))
+                        collectedEmojiNameArray.remove(it)
+                }
             }
 
             val newJSONArray = JSONArray("[]")
