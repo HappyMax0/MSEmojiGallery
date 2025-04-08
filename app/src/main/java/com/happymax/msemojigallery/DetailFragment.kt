@@ -24,8 +24,10 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.caverock.androidsvg.SVG
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -219,19 +221,18 @@ class DetailFragment : Fragment() {
             }
 
             if(isChecked){
-                if(!collectedEmojiNameArray.contains(name))
-                    name?.let { collectedEmojiNameArray.add(it) }
+                name?.let { collectedEmojiNameArray.add(it) }
             }
             else{
-                if(collectedEmojiNameArray.contains(name))
-                    collectedEmojiNameArray.remove(name)
+                collectedEmojiNameArray.remove(name)
             }
 
+            val newJSONArray = JSONArray("[]")
             val editor = sharedPreferences.edit()
             for (value in collectedEmojiNameArray) {
-                jsonArray.put(value)
+                newJSONArray.put(value)
             }
-            editor.putString("collection", jsonArray.toString())
+            editor.putString("collection", newJSONArray.toString())
             editor.apply()
 
             val result = Bundle()
@@ -239,11 +240,18 @@ class DetailFragment : Fragment() {
             result.putBoolean("collected", isChecked)
             parentFragmentManager.setFragmentResult("favouriteChanged", result)
 
+            //Tab View
             if(activity is MainActivity){
-                val mainViewModel = ViewModelProvider(activity as MainActivity).get(MainViewModel::class.java)
+                val mainActivity = activity as MainActivity
+                val mainViewModel = ViewModelProvider(mainActivity).get(MainViewModel::class.java)
 
                 val emoji = mainViewModel.emojis.value.first() { it.name == name }
                 emoji.collected  = isChecked
+
+                if(mainActivity.currentCategory == EmojiCategory.FAVOURITE){
+                    val bundle = bundleOf("category" to mainActivity.currentCategory.name)
+                    mainActivity.navController.navigate(R.id.nav_favourites, bundle)
+                }
             }
             else if(activity is DetailActivity){
                 val resultIntent = Intent()

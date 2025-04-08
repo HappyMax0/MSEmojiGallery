@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     var launcher: ActivityResultLauncher<Intent>? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    var currentCategory: EmojiCategory = EmojiCategory.FAVOURITE
+    lateinit var navController:NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
@@ -118,6 +121,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            currentCategory = category
+
             val bundle = bundleOf("category" to category.name)
             navController.navigate(item.itemId, bundle)
 
@@ -143,6 +148,11 @@ class MainActivity : AppCompatActivity() {
                     if(emoji != null){
                         val collected = data.getBooleanExtra("collected", emoji.collected)
                         emoji.collected = collected
+
+                        if(currentCategory == EmojiCategory.FAVOURITE){
+                            val bundle = bundleOf("category" to currentCategory.name)
+                            navController.navigate(R.id.nav_favourites, bundle)
+                        }
                     }
                 }
             }
