@@ -116,7 +116,7 @@ class DetailFragment : Fragment() {
         )
 
         rootView.findViewById<FloatingActionButton>(R.id.fab_share).setOnClickListener{
-            var image = imageToBitmap()
+            val image = imageToBitmap()
 
             val file = context?.let { it1 -> image?.let { it2 ->
                 name?.let { it3 ->
@@ -134,54 +134,52 @@ class DetailFragment : Fragment() {
         }
 
         val colorRadioGroup:RadioGroup = rootView.findViewById(R.id.colorRadioGroup)
-        if(colorRadioGroup != null) {
-            if(!hasMultiSkin){
-                colorRadioGroup.visibility = View.GONE
+        if(!hasMultiSkin){
+            colorRadioGroup.visibility = View.GONE
+        }
+        else{
+            colorRadioGroup.visibility = View.VISIBLE
+            val radio_default:RadioButton = rootView.findViewById(R.id.radio_default)
+            radio_default.isChecked = true
+            radio_default.setOnCheckedChangeListener  { _, isChecked ->
+                if(isChecked){
+                    skin = Skin.Default
+                    updateSkin(imageView, "Default")
+                }
             }
-            else{
-                colorRadioGroup.visibility = View.VISIBLE
-                val radio_default:RadioButton = rootView.findViewById(R.id.radio_default)
-                radio_default.isChecked = true
-                radio_default.setOnCheckedChangeListener  { _, isChecked ->
-                    if(isChecked){
-                        skin = Skin.Default
-                        updateSkin(imageView, "Default")
-                    }
+            val radioLight:RadioButton = rootView.findViewById(R.id.radio_light)
+            radioLight.setOnCheckedChangeListener  { _, isChecked ->
+                if(isChecked){
+                    skin = Skin.Light
+                    updateSkin(imageView, "Light")
                 }
-                val radioLight:RadioButton = rootView.findViewById(R.id.radio_light)
-                radioLight.setOnCheckedChangeListener  { _, isChecked ->
-                    if(isChecked){
-                        skin = Skin.Light
-                        updateSkin(imageView, "Light")
-                    }
+            }
+            val radioDark:RadioButton = rootView.findViewById(R.id.radio_dark)
+            radioDark.setOnCheckedChangeListener  { _, isChecked ->
+                if(isChecked){
+                    skin = Skin.Dark
+                    updateSkin(imageView, "Dark")
                 }
-                val radioDark:RadioButton = rootView.findViewById(R.id.radio_dark)
-                radioDark.setOnCheckedChangeListener  { _, isChecked ->
-                    if(isChecked){
-                        skin = Skin.Dark
-                        updateSkin(imageView, "Dark")
-                    }
+            }
+            val radioMedium:RadioButton = rootView.findViewById(R.id.radio_medium)
+            radioMedium.setOnCheckedChangeListener  { _, isChecked ->
+                if(isChecked){
+                    skin = Skin.Medium
+                    updateSkin(imageView, "Medium")
                 }
-                val radioMedium:RadioButton = rootView.findViewById(R.id.radio_medium)
-                radioMedium.setOnCheckedChangeListener  { _, isChecked ->
-                    if(isChecked){
-                        skin = Skin.Medium
-                        updateSkin(imageView, "Medium")
-                    }
+            }
+            val radioMediumLight:RadioButton = rootView.findViewById(R.id.radio_mediumLight)
+            radioMediumLight.setOnCheckedChangeListener  { _, isChecked ->
+                if(isChecked){
+                    skin = Skin.MediumLight
+                    updateSkin(imageView, "Medium-Light")
                 }
-                val radioMediumLight:RadioButton = rootView.findViewById(R.id.radio_mediumLight)
-                radioMediumLight.setOnCheckedChangeListener  { _, isChecked ->
-                    if(isChecked){
-                        skin = Skin.MediumLight
-                        updateSkin(imageView, "Medium-Light")
-                    }
-                }
-                val radioMediumDark:RadioButton = rootView.findViewById(R.id.radio_mediumDark)
-                radioMediumDark.setOnCheckedChangeListener  { _, isChecked ->
-                    if(isChecked){
-                        skin = Skin.MediumDark
-                        updateSkin(imageView, "Medium-Dark")
-                    }
+            }
+            val radioMediumDark:RadioButton = rootView.findViewById(R.id.radio_mediumDark)
+            radioMediumDark.setOnCheckedChangeListener  { _, isChecked ->
+                if(isChecked){
+                    skin = Skin.MediumDark
+                    updateSkin(imageView, "Medium-Dark")
                 }
             }
         }
@@ -264,7 +262,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun saveImage(){
-        var image = imageToBitmap()
+        val image = imageToBitmap()
         if(image != null){
             var path = "$name/3D"
             if(!hasMultiSkin){
