@@ -27,6 +27,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>"
     <string name="menu_save">Save</string>
     <string name="menu_share">Share</string>
+    <string name="menu_addShortCut">Add to launcher</string>
     <string name="detail_image">Image</string>
     <string name="detail_3d">3D</string>
     <string name="detail_color">Color</string>
