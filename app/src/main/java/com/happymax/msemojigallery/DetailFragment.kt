@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -15,6 +16,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
@@ -29,6 +31,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.caverock.androidsvg.SVG
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
@@ -118,21 +121,7 @@ class DetailFragment : Fragment() {
         )
 
         rootView.findViewById<FloatingActionButton>(R.id.fab_share).setOnClickListener{
-            val image = imageToBitmap()
-
-            val file = context?.let { it1 -> image?.let { it2 ->
-                name?.let { it3 ->
-                    saveBitmapToCache(it1,
-                        it2, it3
-                    )
-                }
-            } }
-            file?.let {
-                val uri = getUriFromFile(context, it)
-                uri?.let {
-                    shareBitmap(context, it)
-                }
-            }
+            share(context)
         }
 
         val colorRadioGroup:RadioGroup = rootView.findViewById(R.id.colorRadioGroup)
@@ -186,23 +175,28 @@ class DetailFragment : Fragment() {
             }
         }
 
-       /* val bottomAppBar: BottomAppBar = rootView.findViewById(R.id.bottomAppBar)
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // Horizontal screen mode
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // Portrait mode
+            val bottomAppBar: BottomAppBar = rootView.findViewById(R.id.bottomAppBar)
 
-        bottomAppBar.setOnMenuItemClickListener { item: MenuItem ->
-            when (item.itemId) {
-                R.id.action_fav -> {
+            bottomAppBar.setOnMenuItemClickListener { item: MenuItem ->
+                when (item.itemId) {
+                    R.id.action_share -> {
+                        share(context)
+                        return@setOnMenuItemClickListener true
+                    }
 
-                    return@setOnMenuItemClickListener true
+                    R.id.action_save -> {
+                        saveImage()
+                        return@setOnMenuItemClickListener true
+                    }
+
+                    else -> return@setOnMenuItemClickListener false
                 }
-
-                R.id.action_save -> {
-
-                    return@setOnMenuItemClickListener true
-                }
-
-                else -> return@setOnMenuItemClickListener false
             }
-        }*/
+        }
 
         val saveBtn: ImageButton = rootView.findViewById(R.id.saveBtn)
         saveBtn.setOnClickListener {
@@ -273,6 +267,24 @@ class DetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
+    }
+
+    private fun share(context:Context?){
+        val image = imageToBitmap()
+
+        val file = context?.let { it1 -> image?.let { it2 ->
+            name?.let { it3 ->
+                saveBitmapToCache(it1,
+                    it2, it3
+                )
+            }
+        } }
+        file?.let {
+            val uri = getUriFromFile(context, it)
+            uri?.let {
+                shareBitmap(context, it)
+            }
+        }
     }
 
     private fun saveImage(){

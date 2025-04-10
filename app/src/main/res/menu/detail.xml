@@ -7,11 +7,6 @@
         android:icon="@drawable/ic_share_24"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_fav"
-        android:title="@string/menu_favourites"
-        android:icon="@drawable/ic_star_24"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/action_save"
         android:title="@string/menu_save"
         android:icon="@drawable/ic_save_24"
