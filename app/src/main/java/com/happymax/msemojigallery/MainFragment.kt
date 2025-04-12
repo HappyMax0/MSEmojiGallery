@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +47,14 @@ class MainFragment : Fragment() {
 
             val emojis = if (category == EmojiCategory.FAVOURITE) mainViewModel.emojis.value.filter { it.collected }
             else mainViewModel.emojis.value.filter { it.category == category }
+
+            val emptyListTextView = view.findViewById<TextView>(R.id.emptyListTextView)
+            if(emojis.isNotEmpty()){
+                emptyListTextView.visibility = View.GONE
+            }
+            else{
+                emptyListTextView.visibility = View.VISIBLE
+            }
 
             val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
 
