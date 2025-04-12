@@ -5,149 +5,146 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailFragment">
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:contentDescription="@string/detail_image"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:contentDescription="@string/detail_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintBottom_toTopOf="@+id/colorRadioGroup">
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_3d"
+                android:text="@string/detail_3d"
+                android:contentDescription="@string/detail_3d"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView">
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_3d"
-                    android:text="@string/detail_3d"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"/>
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_color"
-                    android:text="@string/detail_color"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"/>
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_flat"
-                    android:text="@string/detail_flat"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"/>
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_highContrast"
-                    android:text="@string/detail_highContrast"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"/>
-            </com.google.android.material.tabs.TabLayout>
-            <RadioGroup
-                android:id="@+id/colorRadioGroup"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_color"
+                android:text="@string/detail_color"
+                android:contentDescription="@string/detail_color"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:orientation="horizontal"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="30dp">
-                <RadioButton android:id="@+id/radio_default"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="Default"
-                    style="@style/ColorRadioButton"
-                    android:layout_marginHorizontal="5dp"
-                    android:backgroundTint="@color/skin_default"/>
-                <RadioButton android:id="@+id/radio_light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="Light"
-                    style="@style/ColorRadioButton"
-                    android:layout_marginHorizontal="5dp"
-                    android:backgroundTint="@color/skin_light"/>
-                <RadioButton android:id="@+id/radio_dark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="Dark"
-                    style="@style/ColorRadioButton"
-                    android:layout_marginHorizontal="5dp"
-                    android:backgroundTint="@color/skin_dark"/>
-                <RadioButton android:id="@+id/radio_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="Medium"
-                    style="@style/ColorRadioButton"
-                    android:layout_marginHorizontal="5dp"
-                    android:backgroundTint="@color/skin_medium"/>
-                <RadioButton android:id="@+id/radio_mediumLight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="MediumLight"
-                    style="@style/ColorRadioButton"
-                    android:layout_marginHorizontal="5dp"
-                    android:backgroundTint="@color/skin_medium_light"/>
-                <RadioButton android:id="@+id/radio_mediumDark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="MediumDark"
-                    style="@style/ColorRadioButton"
-                    android:layout_marginHorizontal="5dp"
-                    android:backgroundTint="@color/skin_medium_dark"/>
-            </RadioGroup>
-            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_flat"
+                android:text="@string/detail_flat"
+                android:contentDescription="@string/detail_flat"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_highContrast"
+                android:text="@string/detail_highContrast"
+                android:contentDescription="@string/detail_highContrast"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+        </com.google.android.material.tabs.TabLayout>
+        <RadioGroup
+            android:id="@+id/colorRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="30dp">
+            <RadioButton android:id="@+id/radio_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_margin="20dp">
-                <CheckBox
-                    android:id="@+id/favouriteCheckBox"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:button="@drawable/checkbox_star"
-                    android:layout_marginEnd="10dp"
-                    android:contentDescription="@string/checkbox_favourite"/>
-                <ImageButton
-                    android:id="@+id/saveBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src ="@drawable/ic_save_24"
-                    android:background="@android:color/transparent"
-                    android:text="Save"
-                    android:visibility="gone"/>
-            </LinearLayout>
-        </LinearLayout>
-
-    </ScrollView>
+                android:contentDescription="@string/colorRadioGroup_default"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_default"/>
+            <RadioButton android:id="@+id/radio_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/colorRadioGroup_light"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_light"/>
+            <RadioButton android:id="@+id/radio_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/colorRadioGroup_dark"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_dark"/>
+            <RadioButton android:id="@+id/radio_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/colorRadioGroup_medium"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_medium"/>
+            <RadioButton android:id="@+id/radio_mediumLight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/colorRadioGroup_mediumLight"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_medium_light"/>
+            <RadioButton android:id="@+id/radio_mediumDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/colorRadioGroup_mediumDark"
+                style="@style/ColorRadioButton"
+                android:layout_marginHorizontal="5dp"
+                android:backgroundTint="@color/skin_medium_dark"/>
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="80dp"
         android:layout_gravity="bottom"
         app:menuAlignmentMode="auto"
-        app:fabAlignmentMode="center"
-        app:menu="@menu/detail">
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_share"
+        app:fabAlignmentMode="end"
+        app:fabCradleMargin="8dp"
+        app:fabCradleRoundedCornerRadius="20dp"
+        app:hideOnScroll="false"
+        app:menu="@menu/detail"
+        android:paddingStart="16dp">
+        <ImageButton
+            android:id="@+id/saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_share_24"
-            android:contentDescription="@string/menu_share"
-            app:layout_anchor="@id/bottomAppBar"
-            app:layout_anchorGravity="bottom|end"
-            android:layout_gravity="end|bottom"
-            android:visibility="gone"/>
+            android:src ="@drawable/ic_save_24"
+            android:layout_marginStart="32dp"
+            android:padding="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/button_save" />
+        <CheckBox
+            android:id="@+id/favouriteCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/checkbox_star"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="12dp"
+            android:contentDescription="@string/checkbox_favourite"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_share_24"
+        android:contentDescription="@string/menu_share"
+        app:layout_anchor="@id/bottomAppBar"
+        app:layout_anchorGravity="bottom|end" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

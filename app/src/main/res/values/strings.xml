@@ -34,4 +34,13 @@
     <string name="detail_flat">Flat</string>
     <string name="detail_highContrast">BW</string>
     <string name="checkbox_favourite">Favourite it</string>
+    <string name="button_save">Save</string>
+    <string name="button_menu">Menu</string>
+    <string name="colorRadioGroup_default">Default</string>
+    <string name="colorRadioGroup_light">Light</string>
+    <string name="colorRadioGroup_dark">Dark</string>
+    <string name="colorRadioGroup_medium">Medium</string>
+    <string name="colorRadioGroup_mediumLight">Medium Light</string>
+    <string name="colorRadioGroup_mediumDark">Medium Dark</string>
+
 </resources>

@@ -25,12 +25,11 @@ class EmojiListAdapter(val list: List<Emoji>) : RecyclerView.Adapter<EmojiListAd
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val emojiImageImageView: ImageView
+        // Define click listener for the ViewHolder's View
+        val emojiImageImageView: ImageView = view.findViewById(R.id.emojiImageImageView)
         val emojiNameTextView: TextView
 
         init {
-            // Define click listener for the ViewHolder's View
-            emojiImageImageView = view.findViewById(R.id.emojiImageImageView)
             emojiNameTextView = view.findViewById(R.id.emojiNameTextView)
         }
     }
@@ -51,7 +50,9 @@ class EmojiListAdapter(val list: List<Emoji>) : RecyclerView.Adapter<EmojiListAd
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.emojiImageImageView.setImageBitmap(list[position].image3D)
+        viewHolder.emojiImageImageView.contentDescription = list[position].name
         viewHolder.emojiNameTextView.text = list[position].name
+        viewHolder.emojiNameTextView.contentDescription = list[position].name
 
         // Set click listener for the item view
         viewHolder.itemView.setOnClickListener {

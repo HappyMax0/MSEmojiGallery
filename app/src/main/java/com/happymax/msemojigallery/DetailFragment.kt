@@ -25,7 +25,12 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.content.pm.ShortcutInfoCompat
+import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.graphics.drawable.IconCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +44,7 @@ import org.json.JSONArray
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStream
 
 
 class DetailFragment : Fragment() {
@@ -175,24 +181,33 @@ class DetailFragment : Fragment() {
             }
         }
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // Horizontal screen mode
-        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            val menuButton : ImageButton = rootView.findViewById(R.id.menuButton)
+            menuButton.setOnClickListener { view ->
+                val popup = android.widget.PopupMenu(context, view)
+                popup.menuInflater.inflate(R.menu.detail, popup.menu)
+                popup.setOnMenuItemClickListener { item: MenuItem ->
+                    when (item.itemId) {
+                        R.id.action_addShortCut -> {
+                            createShortcut(context)
+                            return@setOnMenuItemClickListener true
+                        }
+                        else -> return@setOnMenuItemClickListener false
+                    }
+                }
+                popup.show()
+            }
+        } else if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // Portrait mode
             val bottomAppBar: BottomAppBar = rootView.findViewById(R.id.bottomAppBar)
-
+            bottomAppBar.overflowIcon = context?.let { ContextCompat.getDrawable(it, R.drawable.outline_menu_24) }
             bottomAppBar.setOnMenuItemClickListener { item: MenuItem ->
                 when (item.itemId) {
-                    R.id.action_share -> {
-                        share(context)
+                    R.id.action_addShortCut -> {
+                        createShortcut(context)
                         return@setOnMenuItemClickListener true
                     }
-
-                    R.id.action_save -> {
-                        saveImage()
-                        return@setOnMenuItemClickListener true
-                    }
-
                     else -> return@setOnMenuItemClickListener false
                 }
             }
@@ -267,6 +282,28 @@ class DetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
+    }
+
+    private fun createShortcut(context: Context?) {
+        if(context == null) return
+        val shortCutName = if (name == null) getString(R.string.app_name) else name
+        if(shortCutName != null){
+            val shortcutIntent = Intent(context, MainActivity::class.java).apply {
+                action = Intent.ACTION_VIEW
+            }
+
+            val shortcut =
+                ShortcutInfoCompat.Builder(context, shortCutName)
+                    .setShortLabel(shortCutName)
+                    .setLongLabel(shortCutName)
+                    .setIcon(image3D?.let { it1 -> IconCompat.createWithBitmap(it1) })
+                    .setIntent(shortcutIntent)
+                    .build()
+
+            if (shortcut != null) {
+                ShortcutManagerCompat.requestPinShortcut(context, shortcut, null)
+            }
+        }
     }
 
     private fun share(context:Context?){
