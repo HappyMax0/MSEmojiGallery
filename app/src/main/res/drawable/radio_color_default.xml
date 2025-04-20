@@ -3,23 +3,26 @@
     <item android:state_checked="true">
         <layer-list>
             <item>
-                <shape android:shape="oval">
+                <shape android:shape="ring"  android:innerRadiusRatio="5"
+                    android:thicknessRatio="6"
+                    android:useLevel="false">
                     <solid android:color="?attr/colorOnSurface"/>
-                    <size android:width="26dp" android:height="26dp"/>
+                    <size android:width="24dp" android:height="24dp" android:gravity="center"/>
                 </shape>
             </item>
-            <item android:width="24dp" android:height="24dp" android:gravity="center">
+            <item android:gravity="center">
                 <shape android:shape="oval">
-                    <solid android:color="?attr/backgroundTint"/>" />
+                    <solid android:color="@color/skin_default"/>
+                    <size android:width="20dp" android:height="20dp" android:gravity="center"/>
                 </shape>
             </item>
         </layer-list>
     </item>
     <!-- 未选中状态 -->
     <item>
-        <shape android:shape="oval">
-            <solid android:color="?attr/backgroundTint"/>
-            <size android:width="24dp" android:height="24dp"/>
+        <shape android:shape="oval" android:gravity="center">
+            <solid android:color="@color/skin_default"/>
+            <size android:width="20dp" android:height="20dp" android:gravity="center"/>
         </shape>
     </item>
 </selector>
