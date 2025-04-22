@@ -22,6 +22,7 @@ class DetailActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val name:String? = intent.getStringExtra("name")
+        val category:String? = intent.getStringExtra("category")
         val hasMultiSkin:Boolean = intent.getBooleanExtra("hasMultiSkin", false)
         val collected:Boolean = intent.getBooleanExtra("collected", false)
         //setContentView(R.layout.activity_detail)
@@ -34,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         // 设置 Toolbar 或者其他自定义的标题栏（如果有的话）
-        binding.toolbar.title = name
+        binding.toolbar.title = category
         setSupportActionBar(binding.toolbar)
         //sets(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -81,6 +81,7 @@ class MainFragment : Fragment() {
                                 putString("name", model.name)  // 传递参数
                                 putBoolean("hasMultiSkin", model.hasMultiSkin)
                                 putBoolean("collected", model.collected)
+                                putString("category", model.category.toString())
                             }
                         }
                         manager.beginTransaction()
@@ -93,6 +94,7 @@ class MainFragment : Fragment() {
                         intent.putExtra("name", model.name)
                         intent.putExtra("hasMultiSkin", model.hasMultiSkin)
                         intent.putExtra("collected", model.collected)
+                        intent.putExtra("category", model.category.toString())
                         activity.launcher?.launch(intent)
                     }
                 }

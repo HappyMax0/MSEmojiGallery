@@ -24,6 +24,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
@@ -90,6 +91,9 @@ class DetailFragment : Fragment() {
                     }
                 }
             }
+
+            val emojiName = rootView.findViewById<TextView>(R.id.emojiName)
+            emojiName.text = name
         }
 
         val imageView = rootView.findViewById<ImageView>(R.id.imageView)
@@ -183,7 +187,7 @@ class DetailFragment : Fragment() {
 
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // Horizontal screen mode
-            val menuButton : ImageButton = rootView.findViewById(R.id.menuButton)
+            /*val menuButton : ImageButton = rootView.findViewById(R.id.menuButton)
             menuButton.setOnClickListener { view ->
                 val popup = android.widget.PopupMenu(context, view)
                 popup.menuInflater.inflate(R.menu.detail, popup.menu)
@@ -197,7 +201,7 @@ class DetailFragment : Fragment() {
                     }
                 }
                 popup.show()
-            }
+            }*/
         } else if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // Portrait mode
             val bottomAppBar: BottomAppBar = rootView.findViewById(R.id.bottomAppBar)

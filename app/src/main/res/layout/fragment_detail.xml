@@ -8,6 +8,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/emojiName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"/>
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
@@ -15,7 +23,7 @@
             android:contentDescription="@string/detail_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/emojiName" />
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
@@ -65,46 +73,28 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="30dp">
             <RadioButton android:id="@+id/radio_default"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:contentDescription="@string/colorRadioGroup_default"
                 style="@style/ColorRadioButton"
-                android:layout_marginHorizontal="5dp"
                 android:backgroundTint="@color/skin_default"/>
             <RadioButton android:id="@+id/radio_light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:contentDescription="@string/colorRadioGroup_light"
                 style="@style/ColorRadioButton"
-                android:layout_marginHorizontal="5dp"
                 android:backgroundTint="@color/skin_light"/>
             <RadioButton android:id="@+id/radio_dark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:contentDescription="@string/colorRadioGroup_dark"
                 style="@style/ColorRadioButton"
-                android:layout_marginHorizontal="5dp"
                 android:backgroundTint="@color/skin_dark"/>
             <RadioButton android:id="@+id/radio_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:contentDescription="@string/colorRadioGroup_medium"
                 style="@style/ColorRadioButton"
-                android:layout_marginHorizontal="5dp"
                 android:backgroundTint="@color/skin_medium"/>
             <RadioButton android:id="@+id/radio_mediumLight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:contentDescription="@string/colorRadioGroup_mediumLight"
                 style="@style/ColorRadioButton"
-                android:layout_marginHorizontal="5dp"
                 android:backgroundTint="@color/skin_medium_light"/>
             <RadioButton android:id="@+id/radio_mediumDark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:contentDescription="@string/colorRadioGroup_mediumDark"
                 style="@style/ColorRadioButton"
-                android:layout_marginHorizontal="5dp"
                 android:backgroundTint="@color/skin_medium_dark"/>
         </RadioGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
