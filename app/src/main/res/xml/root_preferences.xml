@@ -1,0 +1,55 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="@string/general_header">
+
+         <EditTextPreference
+             app:key="imageSize"
+             android:defaultValue="512"
+             app:title="@string/image_size_title"
+             app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/appearance_header">
+
+        <ListPreference
+            app:defaultValue="system"
+            app:entries="@array/appearance_entries"
+            app:entryValues="@array/appearance_values"
+            app:key="theme"
+            app:title="@string/theme_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+ <!--   <PreferenceCategory app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="@string/sync_title" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/attachment_title" />
+
+    </PreferenceCategory>-->
+
+    <PreferenceCategory app:title="@string/about_header">
+
+        <Preference
+            android:key="info"
+            android:title="@string/app_name"
+            android:summary="@string/introduce_summary"/>
+
+        <Preference
+            android:key="version"
+            android:title="@string/version_title"
+            android:summary="1.3.0"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

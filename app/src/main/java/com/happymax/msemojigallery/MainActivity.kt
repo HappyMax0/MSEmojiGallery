@@ -3,6 +3,8 @@ package com.happymax.msemojigallery
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -163,6 +165,34 @@ class MainActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection.
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                navigateToSettings()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun navigateToSettings(){
+       val detailFragment = this.findViewById<View>(R.id.detail_fragment)  //supportFragmentManager.findFragmentByTag("detailFragment")
+        if(detailFragment != null){
+            // 在平板模式下，更新 CategoryFragment 显示
+            val manager = this.supportFragmentManager
+            //val detailFragment = manager.findFragmentById(R.id.detailFragment) as? DetailFragment
+            val settingsFragment = SettingsActivity.SettingsFragment()
+            manager.beginTransaction()
+                .replace(R.id.detail_fragment, settingsFragment)
+                .commit()
+        }
+        else{
+            val intent = Intent(this, SettingsActivity::class.java)
+            this.launcher?.launch(intent)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

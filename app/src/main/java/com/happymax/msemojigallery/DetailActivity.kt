@@ -1,12 +1,11 @@
 package com.happymax.msemojigallery
 
-import android.app.ActivityManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -25,15 +24,16 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         // 隐藏 ActionBar
         supportActionBar?.hide()
         // 设置 Toolbar 或者其他自定义的标题栏（如果有的话）
-        binding.toolbar.title = getString(R.string.app_name)
+        toolbar.title = getString(R.string.app_name)
 
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
