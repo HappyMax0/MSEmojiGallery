@@ -1,45 +1,38 @@
 package com.happymax.msemojigallery
 
-import android.graphics.Bitmap
+import android.app.ActivityManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
-import androidx.navigation.ui.AppBarConfiguration
 import com.happymax.msemojigallery.databinding.ActivityDetailBinding
-import com.happymax.msemojigallery.databinding.ActivityMainBinding
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var category:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        val name:String? = intent.getStringExtra("name")
-        val category:String? = intent.getStringExtra("category")
-        val hasMultiSkin:Boolean = intent.getBooleanExtra("hasMultiSkin", false)
-        val collected:Boolean = intent.getBooleanExtra("collected", false)
         //setContentView(R.layout.activity_detail)
-
-        // 设置 Toolbar
+        val cate = intent.getStringExtra("category")
+        category = cate ?: getString(R.string.app_name)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // 隐藏 ActionBar
         supportActionBar?.hide()
-
         // 设置 Toolbar 或者其他自定义的标题栏（如果有的话）
-        binding.toolbar.title = category
-        setSupportActionBar(binding.toolbar)
-        //sets(findViewById(R.id.toolbar))
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.title = getString(R.string.app_name)
 
+        setSupportActionBar(binding.toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
@@ -60,6 +53,27 @@ class DetailActivity : AppCompatActivity() {
             WindowInsetsCompat.CONSUMED
         }
 
+        UpdateEmoji(intent);
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent) // 更新 Intent
+
+        UpdateEmoji(intent)
+    }
+
+    fun UpdateEmoji(intent: Intent){
+        val name:String? = intent.getStringExtra("name")
+        val cate:String? = intent.getStringExtra("category")
+        val hasMultiSkin:Boolean = intent.getBooleanExtra("hasMultiSkin", false)
+        val collected:Boolean = intent.getBooleanExtra("collected", false)
+        category = cate ?: getString(R.string.app_name)
         val manager = supportFragmentManager
         val detailFragment = DetailFragment().apply {
             arguments = Bundle().apply {
@@ -72,5 +86,4 @@ class DetailActivity : AppCompatActivity() {
             .replace(R.id.detail_fragment, detailFragment)
             .commit()
     }
-
 }

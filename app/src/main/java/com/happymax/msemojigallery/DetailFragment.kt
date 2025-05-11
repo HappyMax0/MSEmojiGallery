@@ -31,6 +31,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.content.pm.ShortcutManagerCompat.isRequestPinShortcutSupported
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -53,6 +54,7 @@ class DetailFragment : Fragment() {
     var name: String? = null
     var hasMultiSkin:Boolean = false
     var collected:Boolean = false
+    var category:String? = null
     private var image3D: Bitmap? = null
     private var imageColor: Drawable? = null
     private var imageFlat: Drawable? = null
@@ -64,6 +66,7 @@ class DetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             name = it.getString("name")  // 从 arguments 中获取数据
+            category = it.getString("category")
             hasMultiSkin = it.getBoolean("hasMultiSkin")
             collected = it.getBoolean("collected")
         }
@@ -290,11 +293,17 @@ class DetailFragment : Fragment() {
     }
 
     private fun createShortcut(context: Context?) {
-        if(context == null) return
-        val shortCutName = if (name == null) getString(R.string.app_name) else name
+        if(context == null || !isRequestPinShortcutSupported(context)) return
+        val shortCutName = name ?: getString(R.string.app_name)
         if(shortCutName != null){
-            val shortcutIntent = Intent(context, MainActivity::class.java).apply {
+            val shortcutIntent = Intent(context, DetailActivity::class.java).apply {
                 action = Intent.ACTION_VIEW
+            }
+            shortcutIntent.apply {
+                putExtra("name", name)
+                putExtra("category", category)
+                putExtra("hasMultiSkin", hasMultiSkin)
+                putExtra("collected", collected)
             }
 
             val shortcut =
