@@ -185,9 +185,9 @@ class DetailFragment : Fragment() {
             }
         }
 
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        val menuButton : ImageButton? = rootView.findViewById(R.id.menuButton)
+        if(menuButton != null){
             // Horizontal screen mode
-            /*val menuButton : ImageButton = rootView.findViewById(R.id.menuButton)
             menuButton.setOnClickListener { view ->
                 val popup = android.widget.PopupMenu(context, view)
                 popup.menuInflater.inflate(R.menu.detail, popup.menu)
@@ -201,8 +201,9 @@ class DetailFragment : Fragment() {
                     }
                 }
                 popup.show()
-            }*/
-        } else if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            }
+        }
+        else{
             // Portrait mode
             val bottomAppBar: BottomAppBar = rootView.findViewById(R.id.bottomAppBar)
             bottomAppBar.overflowIcon = context?.let { ContextCompat.getDrawable(it, R.drawable.outline_menu_24) }
