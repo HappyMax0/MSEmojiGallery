@@ -60,6 +60,7 @@
     <string name="version_title">Version</string>
 
     <string name="introduce_summary">An android app that collects microsoft fluent emojis</string>
+    <string name="version_summary">Unknow</string>
 
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>

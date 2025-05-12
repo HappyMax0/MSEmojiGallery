@@ -14,10 +14,10 @@
     <PreferenceCategory app:title="@string/appearance_header">
 
         <ListPreference
-            app:defaultValue="system"
+            app:key="theme"
             app:entries="@array/appearance_entries"
             app:entryValues="@array/appearance_values"
-            app:key="theme"
+            app:defaultValue="system"
             app:title="@string/theme_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -48,7 +48,7 @@
         <Preference
             android:key="version"
             android:title="@string/version_title"
-            android:summary="1.3.0"/>
+            android:summary="@string/version_summary"/>
 
     </PreferenceCategory>
 

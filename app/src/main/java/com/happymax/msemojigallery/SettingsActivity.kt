@@ -1,13 +1,17 @@
 package com.happymax.msemojigallery
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 
 class SettingsActivity : AppCompatActivity() {
@@ -56,6 +60,35 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
+
+            val versionPreference = findPreference<Preference>("version")
+            versionPreference?.summary = getAppVersion()
+
+            val listPreference = findPreference<ListPreference>("theme")
+            listPreference?.setOnPreferenceChangeListener { _, newValue ->
+
+                when (newValue) {
+                    "light" -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                    "dark" -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        }
+                    else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                }
+
+                true
+            }
         }
+
+        private fun getAppVersion(): String {
+            return try {
+                val packageInfo = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
+                packageInfo.versionName ?:getString(R.string.version_summary)  // 获取版本名称
+            } catch (e: PackageManager.NameNotFoundException) {
+                getString(R.string.version_summary)
+            }
+        }
+
     }
 }

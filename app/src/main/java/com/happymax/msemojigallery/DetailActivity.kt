@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import androidx.preference.PreferenceManager
 import com.happymax.msemojigallery.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
@@ -18,6 +20,19 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val themeValue = sharedPreferences.getString("theme", "system")
+        when (themeValue) {
+            "light" -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            "dark" -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
+
         //setContentView(R.layout.activity_detail)
         val cate = intent.getStringExtra("category")
         category = cate ?: getString(R.string.app_name)

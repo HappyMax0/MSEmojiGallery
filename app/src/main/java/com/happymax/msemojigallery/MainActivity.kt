@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
@@ -22,6 +23,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import com.happymax.msemojigallery.databinding.ActivityMainBinding
 
@@ -36,6 +38,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val themeValue = sharedPreferences.getString("theme", "system")
+        when (themeValue) {
+            "light" -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            "dark" -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
 
         val mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         if(!mainViewModel.dataSetted)
@@ -178,7 +192,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun navigateToSettings(){
+    private fun navigateToSettings(){
        val detailFragment = this.findViewById<View>(R.id.detail_fragment)  //supportFragmentManager.findFragmentByTag("detailFragment")
         if(detailFragment != null){
             // 在平板模式下，更新 CategoryFragment 显示
