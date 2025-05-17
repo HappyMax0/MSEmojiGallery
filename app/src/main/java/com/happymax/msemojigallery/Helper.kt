@@ -3,6 +3,9 @@ package com.happymax.msemojigallery
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.view.View
@@ -133,7 +136,8 @@ object Helper {
                     val inputStream: InputStream = context.assets.open(imagePath)
                     val svg = SVG.getFromInputStream(inputStream)
                     // 将SVG渲染成Drawable
-                    image = (PictureDrawable(svg.renderToPicture()))
+                    val pictureDrawable = PictureDrawable(svg.renderToPicture())
+                    image = pictureDrawable
                     inputStream.close()
                 } catch (e: java.lang.Exception) {
                     e.printStackTrace()

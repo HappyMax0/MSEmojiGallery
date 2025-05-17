@@ -1,6 +1,7 @@
 package com.happymax.msemojigallery
 
 import android.app.Activity
+import android.app.UiModeManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetManager
@@ -8,6 +9,8 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.MediaScannerConnection
@@ -26,6 +29,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -37,6 +41,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.preference.PreferenceManager
 import com.caverock.androidsvg.SVG
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.button.MaterialButton
@@ -290,6 +295,26 @@ class DetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
+    }
+
+    private fun IsDarkMode(context: Context?):Boolean{
+        if(context == null) return false
+        var isDark:Boolean = false
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val themeValue = sharedPreferences.getString("theme", "system")
+        when (themeValue) {
+            "light" -> {
+                isDark = false
+            }
+            "dark" -> {
+                isDark = true
+            }
+            else -> {
+                val uiModeManager = context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+                isDark = uiModeManager.nightMode == Configuration.UI_MODE_NIGHT_YES
+            }
+        }
+        return isDark
     }
 
     private fun createShortcut(context: Context?) {
