@@ -3,11 +3,13 @@
 
     <PreferenceCategory app:title="@string/general_header">
 
-         <EditTextPreference
-             app:key="imageSize"
-             android:defaultValue="512"
+         <SeekBarPreference
+             app:key="imageQuality"
+             android:defaultValue="100"
+             android:min="0" android:max="100"
              app:title="@string/image_size_title"
-             app:useSimpleSummaryProvider="true" />
+             app:useSimpleSummaryProvider="true"
+             app:showSeekBarValue="true"/>
 
     </PreferenceCategory>
 
@@ -43,12 +45,25 @@
         <Preference
             android:key="info"
             android:title="@string/app_name"
-            android:summary="@string/introduce_summary"/>
+            android:summary="@string/introduce_summary">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/HappyMax0/MSEmojiGallery" />
+        </Preference>
 
         <Preference
             android:key="version"
             android:title="@string/version_title"
             android:summary="@string/version_summary"/>
+
+        <Preference
+            android:key="sources"
+            android:title="@string/sources_title"
+            android:summary="@string/sources_summary">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/microsoft/fluentui-emoji" />
+        </Preference>
 
     </PreferenceCategory>
 

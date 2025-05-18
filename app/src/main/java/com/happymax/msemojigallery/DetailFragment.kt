@@ -346,21 +346,23 @@ class DetailFragment : Fragment() {
     }
 
     private fun share(context:Context?){
+        if(context == null) return
+
         val image = imageToBitmap()
 
-        val file = context?.let { it1 -> image?.let { it2 ->
-            name?.let { it3 ->
-                saveBitmapToCache(it1,
-                    it2, it3
-                )
-            }
-        } }
-        file?.let {
-            val uri = getUriFromFile(context, it)
-            uri?.let {
-                shareBitmap(context, it)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val quality = sharedPreferences.getInt("imageQuality", 100)
+        if(name != null && image != null){
+            val file = saveBitmapToCache(context, image, name!!, quality)
+
+            file?.let {
+                val uri = getUriFromFile(context, it)
+                uri?.let {
+                    shareBitmap(context, it)
+                }
             }
         }
+
     }
 
     private fun saveImage(){
@@ -393,12 +395,18 @@ class DetailFragment : Fragment() {
                     else -> "$name/3D"
                 }
             }
-            saveBitmapToExternal(context, image, path)
+
+            context?.let {
+                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(it)
+                val quality = sharedPreferences.getInt("imageQuality", 100)
+                saveBitmapToExternal(it, image, path, quality)
+            }
         }
     }
 
     private fun imageToBitmap(): Bitmap?{
         var image = image3D
+
         if(!hasMultiSkin){
             when(tabPosition){
                 0 -> image = image3D
@@ -453,24 +461,28 @@ class DetailFragment : Fragment() {
     }
 
     private fun assetToBitmap(assetManager: AssetManager?, directoryName: String) : Bitmap? {
-        if (assetManager == null) return null
+        if (assetManager == null || context == null) return null
 
         val files: Array<out String>? = assetManager?.list(directoryName)
         if (files != null) {
             val file = files.firstOrNull()
             if (file != null) {
-                val inputStream = assetManager.open("$directoryName/$file")
-                val svg = SVG.getFromInputStream(inputStream)
-                val bitmap = Bitmap.createBitmap(
-                    svg.documentWidth.toInt() * 100,
-                    svg.documentHeight.toInt() * 100, Bitmap.Config.ARGB_8888
-                )
-                val canvas = Canvas(bitmap)
-                svg.documentWidth *= 100
-                svg.documentHeight *= 100
-                svg.renderToCanvas(canvas)
-                inputStream.close()
-                return bitmap
+                context?.let {
+                    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(it)
+                    val quality = sharedPreferences.getInt("imageQuality", 100)
+                    val inputStream = assetManager.open("$directoryName/$file")
+                    val svg = SVG.getFromInputStream(inputStream)
+                    val bitmap = Bitmap.createBitmap(
+                        svg.documentWidth.toInt() * quality,
+                        svg.documentHeight.toInt() * quality, Bitmap.Config.ARGB_8888
+                    )
+                    val canvas = Canvas(bitmap)
+                    svg.documentWidth *= quality
+                    svg.documentHeight *= quality
+                    svg.renderToCanvas(canvas)
+                    inputStream.close()
+                    return bitmap
+                }
             }
         }
         return null
@@ -489,13 +501,13 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun saveBitmapToCache(context: Context, bitmap: Bitmap, fileName: String): File? {
+    private fun saveBitmapToCache(context: Context, bitmap: Bitmap, fileName: String, quality:Int): File? {
         return try {
             val cachePath = File(context.cacheDir, "images")
             cachePath.mkdirs() // 创建目录
             val file = File(cachePath, fileName)
             val fileOutputStream = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+            bitmap.compress(Bitmap.CompressFormat.PNG, quality, fileOutputStream)
             fileOutputStream.close()
             file
         } catch (e: IOException) {
@@ -504,7 +516,7 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private fun saveBitmapToExternal(context: Context?, bitmap: Bitmap, path: String): File? {
+    private fun saveBitmapToExternal(context: Context?, bitmap: Bitmap, path: String, quality:Int): File? {
         if(context == null) return null
         val imageFiles: Array<String> = context.assets?.list(path)!!
         if (imageFiles.isNotEmpty()) {
@@ -524,7 +536,7 @@ class DetailFragment : Fragment() {
                 msemojiDir.mkdirs()
             }
             val fileOutputStream = FileOutputStream(outFile)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+            bitmap.compress(Bitmap.CompressFormat.PNG, quality, fileOutputStream)
             fileOutputStream.close()
 
             // 通知图库更新
