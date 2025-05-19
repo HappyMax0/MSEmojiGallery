@@ -15,15 +15,27 @@
         android:gravity="center_horizontal"
         android:textSize="24sp"/>
 
-    <ImageView
-        android:id="@+id/imageView"
+    <FrameLayout
+        android:id="@+id/imageFrameLayout"
         android:layout_width="350dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/detail_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emojiName"
-        app:layout_constraintBottom_toTopOf="@+id/tabLayout"/>
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/detail_image"
+            />
+        <WebView
+            android:id="@+id/apngView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/detail_image"
+            android:visibility="gone"/>
+    </FrameLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -33,7 +45,7 @@
         android:gravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageFrameLayout"
         app:layout_constraintBottom_toTopOf="@+id/colorRadioGroup">
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_3d"
@@ -60,6 +72,13 @@
             android:id="@+id/tab_highContrast"
             android:text="@string/detail_highContrast"
             android:contentDescription="@string/detail_highContrast"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"/>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_animated"
+            android:text="@string/detail_animated"
+            android:contentDescription="@string/detail_animated"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"/>

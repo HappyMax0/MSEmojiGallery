@@ -10,7 +10,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.MediaScannerConnection
@@ -22,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -29,8 +29,6 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.pm.ShortcutInfoCompat
@@ -40,18 +38,16 @@ import androidx.core.graphics.drawable.IconCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import com.caverock.androidsvg.SVG
 import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import org.json.JSONArray
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStream
+import java.util.Locale
 
 
 class DetailFragment : Fragment() {
@@ -107,21 +103,69 @@ class DetailFragment : Fragment() {
         val imageView = rootView.findViewById<ImageView>(R.id.imageView)
         imageView?.setImageBitmap(image3D)
 
+        val webView = rootView.findViewById<WebView>(R.id.apngView)
+        // 启用硬件加速和 JS（推荐）
+        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        webView.getSettings().setJavaScriptEnabled(true);
+        // 使背景透明（可选）
+        webView.setBackgroundColor(Color.TRANSPARENT);
+
         val tabLayout = rootView.findViewById<TabLayout>(R.id.tabLayout)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
+                        webView.visibility = View.GONE
+                        imageView.visibility = View.VISIBLE
                         imageView?.setImageBitmap(image3D)
                     }
                     1 -> {
+                        webView.visibility = View.GONE
+                        imageView.visibility = View.VISIBLE
                         imageView?.setImageDrawable(imageColor)
                         }
                     2 -> {
+                        webView.visibility = View.GONE
+                        imageView.visibility = View.VISIBLE
                         imageView?.setImageDrawable(imageFlat)
                     }
                     3 -> {
+                        webView.visibility = View.GONE
+                        imageView.visibility = View.VISIBLE
                         imageView?.setImageDrawable(imageHighContrast)
+                    }
+                    4 ->{
+                        val directoryName = name?.replace(" ", "%20")
+                        val fileName = name?.lowercase(Locale.getDefault())?.replace(" ", "_").plus("_animated");
+                        val imageUrl = "https://media.githubusercontent.com/media/microsoft/fluentui-emoji-animated/main/assets/$directoryName/animated/$fileName.png"
+                        webView.visibility = View.VISIBLE
+                        imageView.visibility = View.GONE
+
+                        val html = """
+    <html><body style='margin:0;padding:0;background:transparent;'>
+    <img src="$imageUrl" style='width:100%;height:auto;'/>
+    </body></html>
+""".trimIndent()
+
+                        //webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null)
+                        webView.loadUrl(imageUrl)
+                       /* Thread {
+                            try {
+                                val input = URL(imageUrl).openStream()
+                                val apngDrawable: ApngDrawable = ApngDrawable(input)
+
+                                // 启动动画
+                                apngDrawable.start()
+
+                                // 更新 UI（确保在主线程中）
+                                Handler(Looper.getMainLooper()).post {
+                                    imageView?.setImageDrawable(apngDrawable)
+                                }
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+                        }.start()*/
+
                     }
                 }
 

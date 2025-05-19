@@ -34,6 +34,7 @@
     <string name="detail_color">Color</string>
     <string name="detail_flat">Flat</string>
     <string name="detail_highContrast">BW</string>
+    <string name="detail_animated">Anim</string>
     <string name="checkbox_favourite">Favourite it</string>
     <string name="button_save">Save</string>
     <string name="button_menu">Menu</string>
