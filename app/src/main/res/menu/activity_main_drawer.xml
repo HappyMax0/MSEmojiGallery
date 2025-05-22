@@ -56,5 +56,11 @@
             android:icon="@drawable/triangular_flag_high_contrast"
             android:title="@string/menu_flags" />
 
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="@string/action_search"
+            android:visible="false"/>
+
     </group>
 </menu>

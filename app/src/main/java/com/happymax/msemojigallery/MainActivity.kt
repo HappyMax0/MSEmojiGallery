@@ -2,6 +2,7 @@ package com.happymax.msemojigallery
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -27,6 +28,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import com.happymax.msemojigallery.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.first
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
@@ -97,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_smileys_and_emotion, R.id.nav_people_and_body,
                 R.id.nav_animals_and_nature, R.id.nav_food_and_drink,
                 R.id.nav_travel_and_places, R.id.nav_activities,
-                R.id.nav_objects, R.id.nav_symbols, R.id.nav_flags
+                R.id.nav_objects, R.id.nav_symbols, R.id.nav_flags, R.id.nav_search
             ), drawerLayout
         )
 
@@ -184,8 +187,61 @@ class MainActivity : AppCompatActivity() {
         val searchView = searchItem?.actionView as SearchView
 
         // Configure the search info and add any event listeners.
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // 提交搜索时的处理
+                performSearch(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                // 实时监听输入变化（可用于自动提示）
+                performSearch(newText)
+                return false
+            }
+        })
+
+        // Define the listener.
+        val expandListener = object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                // Do something when the action item collapses.
+                val navController = findNavController(R.id.nav_host_fragment_content_main)
+                navController.popBackStack()  // 返回上一个 destination（即之前 NavigationView 选中的页面）
+                return true // Return true to collapse the action view.
+            }
+
+            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+                // Do something when it expands.
+                val navController = findNavController(R.id.nav_host_fragment_content_main)
+                navController.navigate(R.id.nav_search)
+
+                return true // Return true to expand the action view.
+            }
+        }
+
+        // Assign the listener to that action item.
+        searchItem?.setOnActionExpandListener(expandListener)
+
+        // For anything else you have to do when creating the options menu,
+        // do the following:
 
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun performSearch(query: String) {
+        // 例如过滤 RecyclerView 列表内容
+        Log.d("Search", "搜索关键词: $query")
+
+        if(query.isBlank()) return
+
+        val mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val emojis = mainViewModel.emojis.value.filter{ it.name.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT))}
+
+        Log.d("Search", "结果数量: ${emojis.count()}")
+
+        val viewModel = ViewModelProvider(this).get(SearchResultViewModel::class.java)
+        viewModel.updateItems(emojis)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
