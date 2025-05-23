@@ -75,13 +75,13 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"/>
-        <com.google.android.material.tabs.TabItem
+        <!--<com.google.android.material.tabs.TabItem
             android:id="@+id/tab_animated"
             android:text="@string/detail_animated"
             android:contentDescription="@string/detail_animated"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />-->
     </com.google.android.material.tabs.TabLayout>
 
     <RadioGroup
